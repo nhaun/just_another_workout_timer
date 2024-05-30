@@ -11,7 +11,9 @@ import 'utils.dart';
 import '../utils/workout.dart';
 
 Future<String> get localPath async {
-  final directory = await getExternalStorageDirectory();
+  final directory = Platform.isAndroid
+    ? await getExternalStorageDirectory()
+    : await getApplicationDocumentsDirectory();
   await Directory('${directory!.path}/workouts').create();
 
   return directory.path;
