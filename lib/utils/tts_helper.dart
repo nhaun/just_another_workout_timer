@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:prefs/prefs.dart';
@@ -34,6 +35,11 @@ class TTSHelper {
 
   static Future<void> init() async {
     flutterTts = FlutterTts();
+
+    if (Platform.isIOS) {
+      _ttsUnavailable();
+      return;
+    }
 
     // populate the list of available TTS voices
     try {
